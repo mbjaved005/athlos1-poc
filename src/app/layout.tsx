@@ -1,5 +1,5 @@
 "use client";
-import type { Metadata } from "next";
+export const dynamic = "force-dynamic";
 import { Geist, Geist_Mono } from "next/font/google";
 import NextAuthSessionProvider from "./SessionProvider";
 import LoaderTransition from "./LoaderTransition";
