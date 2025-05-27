@@ -15,9 +15,11 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: NextAuthUser }) {
-      if (user) {
+      // Always sync onboardingComplete/profileImage from DB if email is present
+      const email = user?.email || token?.email;
+      if (email) {
         await dbConnect();
-        const dbUser = await User.findOne({ email: user.email });
+        const dbUser = await User.findOne({ email });
         (token as any).onboardingComplete = dbUser?.onboardingComplete ?? false;
         (token as any).profileImage = dbUser?.profileImage || null;
       }

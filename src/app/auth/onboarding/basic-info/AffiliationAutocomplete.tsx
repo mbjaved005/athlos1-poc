@@ -68,6 +68,12 @@ const AffiliationAutocomplete: React.FC<AffiliationAutocompleteProps> = ({ value
   // Keyboard navigation
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (!dropdownOpen) return;
+    if (e.key === "Tab") {
+      onChange(inputValue.trim());
+      setDropdownOpen(false);
+      setHighlighted(-1);
+      return; // allow default tab behavior
+    }
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setHighlighted(h => Math.min(h + 1, filtered.length + (showCreateOption ? 1 : 0) - 1));
@@ -234,7 +240,7 @@ const AffiliationAutocomplete: React.FC<AffiliationAutocompleteProps> = ({ value
               ref={inputRef}
               type="text"
               value={inputValue}
-              onChange={e => { setInputValue(e.target.value); onChange(""); setDropdownOpen(true); setHighlighted(-1); }}
+              onChange={e => { setInputValue(e.target.value); setDropdownOpen(true); setHighlighted(-1); }}
               onFocus={() => setDropdownOpen(true)}
               onKeyDown={handleKeyDown}
               className="flex-1 justify-center text-[#272F3A] text-base font-normal font-['Roboto'] leading-tight bg-transparent border-none focus:ring-0 p-0 m-0 outline-none"

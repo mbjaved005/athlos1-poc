@@ -67,11 +67,12 @@ function handleRoleChange(idx: number, value: string) {
         return;
       }
       // Force session refresh so onboardingComplete is up-to-date
-      if (session?.user?.email) {
-        await signIn("credentials", { email: session.user.email, password: "", redirect: false });
+      if (typeof window !== "undefined") {
+        const { getSession } = await import("next-auth/react");
+        await getSession();
+        window.location.replace("/dashboard");
       }
       setLoading(false);
-      window.location.href = "/dashboard";
     } catch {
       setError("Network error. Please try again.");
       setLoading(false);
