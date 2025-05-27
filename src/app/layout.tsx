@@ -1,6 +1,5 @@
-"use client";
-export const dynamic = "force-dynamic";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import NextAuthSessionProvider from "./SessionProvider";
 import LoaderTransition from "./LoaderTransition";
 import "./globals.css";
@@ -22,12 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextAuthSessionProvider>
           <LoaderTransition />
-          {children}
+          <Suspense fallback={<div>Loading...</div>}>
+            {children}
+          </Suspense>
         </NextAuthSessionProvider>
       </body>
     </html>
