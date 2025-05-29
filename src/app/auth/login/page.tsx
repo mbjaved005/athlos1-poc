@@ -66,7 +66,7 @@ function PasswordAsteriskInput({
         spellCheck={false}
       />
       {/* Hidden real password for form submission, with the actual name and value */}
-      <input type="password" name={name} value={realValue} style={{ display: 'none' }} readOnly />
+      <input type="password" name={name} value={realValue} style={{ display: 'none' }} onChange={e => setRealValue(e.target.value)} />
     </div>
   );
 }
