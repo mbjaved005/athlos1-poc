@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import StartTourModal from "@/components/StartTourModal";
 import React, { useState } from "react";
 import { ProfileDropdown } from "./ProfileDropdown";
 
@@ -15,6 +16,8 @@ export default function DashboardPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [dashboardData, setDashboardData] = React.useState<any>(null);
   const router = useRouter();
+  const [showTourModal, setShowTourModal] = React.useState(false);
+  const [tourModalChecked, setTourModalChecked] = React.useState(false);
 
   React.useEffect(() => {
     if (status === "unauthenticated") {
@@ -57,6 +60,11 @@ export default function DashboardPage() {
             invitedForTryout: 2,
           },
         });
+        // Check hasSeenTourModal flag
+        if (data.user && data.user.hasSeenTourModal === false) {
+          setShowTourModal(true);
+        }
+        setTourModalChecked(true);
         setLoading(false);
       })
       .catch(() => {
@@ -74,8 +82,31 @@ export default function DashboardPage() {
     { name: "Integrations", href: "/dashboard/integrations" },
   ];
   const pathname = usePathname();
+
   return (
     <div className="min-h-screen w-full bg-Neutral-100 dark:bg-neutral-900 relative overflow-x-auto">
+      {/* Start Tour Modal overlay - only show after profile loaded and if not seen */}
+      {tourModalChecked && showTourModal && (
+        <StartTourModal
+          open={showTourModal}
+          userName={dashboardData?.user?.name || "User"}
+          onClose={async () => {
+            setShowTourModal(false);
+            await fetch("/api/user/tour", { method: "PATCH" });
+          }}
+          onGetStarted={async () => {
+            setShowTourModal(false);
+            await fetch("/api/user/tour", { method: "PATCH" });
+            // Optionally, trigger tour logic here
+          }}
+          onTakeTour={async () => {
+            setShowTourModal(false);
+            await fetch("/api/user/tour", { method: "PATCH" });
+            // Optionally, trigger tour logic here
+          }}
+        />
+      )}
+
       {/* Top Navigation Bar */}
       <nav className="w-full h-16 px-12 fixed top-0 left-0 bg-black dark:bg-Neutral-100 flex items-center z-20">
         <div className="flex items-center gap-x-10 w-full h-full">

@@ -16,6 +16,7 @@ export interface IUser extends Document {
   numAthletes?: string;
   profileImage?: string;
   activities?: string[];
+  hasSeenTourModal?: boolean;
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -34,6 +35,7 @@ const UserSchema: Schema<IUser> = new Schema({
   numAthletes: { type: String },
   profileImage: { type: String },
   activities: { type: [String], default: [] },
+  hasSeenTourModal: { type: Boolean, default: false },
 });
 
 export const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
