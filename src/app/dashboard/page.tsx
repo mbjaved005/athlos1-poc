@@ -163,7 +163,7 @@ export default function DashboardPage() {
          </div>
        </nav>
       {/* Main Content */}
-      <main className="pt-24 px-16 max-w-[1440px] mx-auto flex flex-col gap-4">
+      <main className="pt-[84px] px-16 max-w-[1440px] mx-auto flex flex-col gap-6">
         {/* Header Section */}
         <section className="w-full flex flex-col gap-4">
           <div className="flex justify-between items-center gap-4">
@@ -171,19 +171,25 @@ export default function DashboardPage() {
               <div className="text-Content-Default dark:text-neutral-100 text-2xl font-semibold font-['Roboto']">
                 {loading ? "Loading..." : error ? "Error loading dashboard" : `Hello, ${dashboardData?.user?.name || "User"}!`}
               </div>
-              <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">
-                {loading ? " " : error ? error : "Get a complete overview of your key insights and platform activity at a glance."}
-              </div>
+              <div className="justify-start text-sm font-normal font-['Roboto'] leading-none">
+  {loading ? " " : error ? error : (
+    <>
+      <span className="text-Content-Tertiary dark:text-neutral-400">Get a complete overview of </span>
+      <span className="text-Background-Accent-Web-Default">ZogSports</span>
+      <span className="text-Content-Tertiary dark:text-neutral-400"> key insights and platform activity at a glance.</span>
+    </>
+  )}
+</div>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-Navy-400 dark:bg-blue-700 rounded flex items-center justify-center" />
+                <img src="/refresh-icon.svg" alt="Last Refreshed" className="w-4 h-4" />
                 <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Last Refreshed 1 min ago</div>
               </div>
               <div className="w-2.5 h-0 origin-top-left rotate-90 outline outline-1 outline-offset-[-0.5px] outline-Border-Divider dark:outline-neutral-700" />
               <div className="h-8 rounded-lg outline outline-1 outline-offset-[-1px] outline-Border-Default dark:outline-neutral-700 flex items-center overflow-hidden">
                 <div className="h-8 pl-2 pr-3 py-1.5 flex items-center gap-2">
-                  <div className="w-4 h-4 bg-slate-500 dark:bg-blue-900 rounded flex items-center justify-center" />
+                  <img src="/calendar-icon.svg" alt="Calendar" className="w-4 h-4" />
                   <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-semibold font-['Roboto'] leading-none">This month</div>
                 </div>
               </div>
@@ -191,27 +197,32 @@ export default function DashboardPage() {
           </div>
           {/* Stats Row */}
           <div className="w-full flex gap-4">
-            {/* Athlete Stats */}
-            <div className="flex-1 p-6 bg-Neutral-50 dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-Neutral-200 dark:outline-neutral-700 flex flex-col gap-6">
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col items-start gap-1">
-                  <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.totalAthletes ?? 0}</div>
-                  <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Total Athletes</div>
-                </div>
-                <div className="flex flex-col items-start gap-1">
-                  <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.activeTeams ?? 0}</div>
-                  <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Active Teams</div>
-                </div>
-                <div className="flex flex-col items-start gap-1">
-                  <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.injuredPlayers ?? 0}</div>
-                  <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Injured Players</div>
-                </div>
-                <div className="flex flex-col items-start gap-1">
-                  <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.avgTeamPerformance ?? 0}</div>
-                  <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Avg Team Performance</div>
-                </div>
-              </div>
-            </div>
+  {/* Athlete Stats */}
+  <div className="flex-1 p-6 bg-Neutral-50 dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-Neutral-200 dark:outline-neutral-700 flex flex-col gap-3 min-h-[156px]">
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center">
+        <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Athlete Stats</div>
+      </div>
+      <div className="flex justify-between items-center w-full">
+        <div className="flex flex-col items-start gap-1">
+          <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.totalAthletes ?? 0}</div>
+          <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Total Athletes</div>
+        </div>
+        <div className="flex flex-col items-start gap-1">
+          <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.activeTeams ?? 0}</div>
+          <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Active Teams</div>
+        </div>
+        <div className="flex flex-col items-start gap-1">
+          <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.injuredPlayers ?? 0}</div>
+          <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Injured Players</div>
+        </div>
+        <div className="flex flex-col items-start gap-1">
+          <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.avgTeamPerformance ?? 0}</div>
+          <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Avg Team Performance</div>
+        </div>
+      </div>
+    </div>
+  </div>
             {/* Recruiting Overview */}
             <div className="flex-1 p-6 bg-Neutral-50 dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-Neutral-200 dark:outline-neutral-700 flex flex-col gap-6">
               <div className="flex justify-between items-center">
@@ -305,3 +316,142 @@ export default function DashboardPage() {
     </div>
   );
 }
+//   <div className="w-full flex gap-4">
+//     {/* Athlete Stats */}
+//     <div className="flex-1 p-6 bg-Neutral-50 dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-Neutral-200 dark:outline-neutral-700 flex flex-col gap-3 min-h-[156px]">
+//       <div className="flex flex-col gap-6">
+//         <div className="flex items-center">
+//           <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Athlete Stats</div>
+//         </div>
+//         <div className="flex justify-between items-center w-full">
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.totalAthletes ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Total Athletes</div>
+//           </div>
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.activeTeams ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Active Teams</div>
+//           </div>
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.injuredPlayers ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Injured Players</div>
+//           </div>
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.avgTeamPerformance ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Avg Team Performance</div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//     {/* Recruiting Overview */}
+//     <div className="flex-1 p-6 bg-Neutral-50 dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-Neutral-200 dark:outline-neutral-700 flex flex-col gap-3 min-h-[156px]">
+//       <div className="flex flex-col gap-6">
+//         <div className="flex items-center">
+//           <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Recruiting Overview</div>
+//         </div>
+//         <div className="flex justify-between items-center w-full">
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.openPositions ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Open Positions</div>
+//           </div>
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.totalApplicants ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Total Applicants</div>
+//           </div>
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.shortlistedApplicants ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Shortlisted Applicants</div>
+//           </div>
+//           <div className="flex flex-col items-start gap-1">
+//             <div className="text-Content-Default dark:text-neutral-100 text-3xl font-semibold font-['Roboto']">{dashboardData?.stats?.invitedForTryout ?? 0}</div>
+//             <div className="text-Content-Tertiary dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none">Invited for Tryout</div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// // </section>
+// //         {/* Main Dashboard Rows */}
+// //         <section className="w-full flex gap-4 mt-4">
+// //           {/* Recruiting Pipeline */}
+// //           <div className="w-[946px] p-5 bg-white dark:bg-neutral-800 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-100 dark:outline-neutral-700 flex flex-col gap-3">
+// //             <div className="flex flex-col gap-6">
+// //               <div className="flex justify-between items-center">
+// //                 <div className="flex items-center gap-2">
+// //                   <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Recruiting Pipeline</div>
+// //                 </div>
+// //               </div>
+// //               <div className="flex-1 text-center text-Color-Text-Colors-Muted-Text dark:text-neutral-500 text-sm font-normal font-['Roboto'] leading-none">No position postings yet. Start hiring top talent today!</div>
+// //             </div>
+// //           </div>
+// //           {/* Recruiting Updates */}
+// //           <div className="flex-1 p-6 bg-white dark:bg-neutral-800 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-100 dark:outline-neutral-700 flex flex-col gap-3">
+// //             <div className="flex flex-col gap-6">
+// //               <div className="flex justify-between items-center">
+// //                 <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Recruiting Updates</div>
+// //               </div>
+// //               <div className="flex-1 text-center text-Color-Text-Colors-Muted-Text dark:text-neutral-500 text-sm font-normal font-['Roboto'] leading-none">No new update yet.</div>
+// //             </div>
+// //           </div>
+// //         </section>
+// //         <section className="w-full flex gap-4 mt-4">
+// //           {/* Top Performing Athletes */}
+// //           <div className="flex-1 h-96 p-6 bg-white dark:bg-neutral-800 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-100 dark:outline-neutral-700 flex flex-col gap-3 overflow-hidden">
+// //             <div className="flex flex-col gap-6">
+// //               <div className="flex justify-between items-center">
+// //                 <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Top Performing Athletes</div>
+// //               </div>
+// //               <div className="flex-1 text-center text-Color-Text-Colors-Muted-Text dark:text-neutral-500 text-sm font-normal font-['Roboto'] leading-none">Add teams and athletes to track performances.</div>
+// //             </div>
+// //           </div>
+// //           {/* Top Regressing Athlete */}
+// //           <div className="flex-1 h-96 p-6 bg-white dark:bg-neutral-800 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-100 dark:outline-neutral-700 flex flex-col gap-3 overflow-hidden">
+// //             <div className="flex flex-col gap-6">
+// //               <div className="flex justify-between items-center">
+// //                 <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Top Regressing Athlete</div>
+// //               </div>
+// //               <div className="flex-1 text-center text-Color-Text-Colors-Muted-Text dark:text-neutral-500 text-sm font-normal font-['Roboto'] leading-none">Add teams and athletes to track performances.</div>
+// //             </div>
+// //           </div>
+// //         </section>
+// //         <section className="w-full flex gap-4 mt-4 mb-8" aria-labelledby="dashboard-bottom-section">
+// //   <h2 id="dashboard-bottom-section" className="sr-only">Dashboard Bottom Section</h2>
+// //           {/* Avg. Team Performance */}
+// //           <div className="flex-1 h-96 p-6 bg-Neutral-50 dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-Neutral-200 dark:outline-neutral-700 flex flex-col gap-3">
+// //             <div className="flex flex-col gap-6">
+// //               <div className="flex justify-between items-center">
+// //                 <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Avg. Team Performance</div>
+// //               </div>
+// //               <div className="flex-1 text-center text-Color-Text-Colors-Muted-Text dark:text-neutral-500 text-sm font-normal font-['Roboto'] leading-none">Add teams and athletes to track performances.</div>
+// //             </div>
+// //           </div>
+// //           {/* Recent Activity */}
+// //           <div className="flex-1 h-96 p-6 bg-white dark:bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-zinc-100 dark:outline-neutral-700 flex flex-col gap-3">
+// //             <div className="flex flex-col gap-6">
+// //               <div className="flex justify-between items-center">
+// //                 <div className="text-Content-Default dark:text-neutral-100 text-lg font-semibold font-['Roboto'] leading-normal">Recent Activity</div>
+// //               </div>
+// //               <div className="flex-1 text-center text-Color-Text-Colors-Muted-Text dark:text-neutral-500 text-sm font-normal font-['Roboto'] leading-none">No activity yet. Once you or your team take actions, updates will appear here.</div>
+// //             </div>
+// //           </div>
+// //         </section>
+//       {/* Need help getting started? Card */}
+// <div className="w-full p-5 bg-neutral-50 rounded-lg flex justify-between items-center mt-8">
+//   <div className="w-80 flex flex-col justify-center items-start gap-1">
+//     <div className="text-center justify-start text-Color-Text-Colors-Primary-Text text-base font-semibold font-['Roboto'] leading-tight">Need help getting started?</div>
+//   </div>
+//   <div className="flex justify-start items-center gap-3">
+//     <button className="h-10 rounded-[100px] flex justify-center items-center gap-2 px-3 py-3 bg-white shadow-sm border border-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-700 aria-label='Contact AthlosOne Team'">
+//       <span className="w-4 h-4 bg-cyan-700 rounded-full inline-block mr-2" aria-hidden="true"></span>
+//       <span className="text-center text-cyan-700 text-sm font-semibold font-['Roboto'] leading-none">Contact AthlosOne Team</span>
+//     </button>
+//     <button className="h-10 rounded-[100px] flex justify-center items-center gap-2 px-3 py-3 bg-white shadow-sm border border-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-700 aria-label='Help Center'">
+//       <span className="w-4 h-4 bg-cyan-700 rounded-full inline-block mr-2" aria-hidden="true"></span>
+//       <span className="text-center text-cyan-700 text-sm font-semibold font-['Roboto'] leading-none">Help Center</span>
+//     </button>
+//   </div>
+// </div>
+//     </main>
+//     // </div>
+// //   );
+// // }
