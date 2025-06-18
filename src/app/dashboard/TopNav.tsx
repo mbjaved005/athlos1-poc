@@ -39,65 +39,52 @@ export default function TopNav() {
   const userInitial = userName[0]?.toUpperCase() || "?";
 
   return (
-    <nav className="w-full h-16 px-12 fixed top-0 left-0 bg-black dark:bg-Neutral-100 flex items-center z-20">
-      <div className="flex items-center gap-x-10 w-full h-full">
-        {/* Logo */}
-        <img className="w-28 h-9 block dark:hidden object-contain" src="/top-nav/ahtlos-logo-light.svg" alt="AthlosOne Logo Light" />
-        <img className="w-28 h-9 hidden dark:block object-contain" src="/top-nav/ahtlos-logo-dark.svg" alt="AthlosOne Logo Dark" />
-        {/* Nav Links */}
-        <div className="flex items-center gap-x-8 h-full">
-          {navTabs.map(tab => {
-            const isActive = pathname === tab.href || (tab.href === "/dashboard" && pathname === "/dashboard");
-            return (
+    <nav className="fixed top-0 left-0 w-full h-14 bg-black z-30 shadow-none">
+      <div className="max-w-[1336px] mx-auto px-[52px] w-full flex items-center justify-between h-14">
+        {/* Left: Logo and Nav */}
+        <div className="flex justify-start items-center gap-6">
+          <img className="w-24 h-7" src="/top-nav/ahtlos-logo-light.svg" alt="AthlosOne Logo" />
+          <div className="flex justify-start items-center gap-2">
+            {navTabs.map((tab) => (
               <Link key={tab.name} href={tab.href} legacyBehavior>
                 <a
                   className={
-                    isActive
-                      ? "text-Neutral-100 dark:text-neutral-900 text-sm font-bold font-['Roboto'] leading-none bg-Navy-600 bg-opacity-40 px-4 py-2 rounded-lg"
-                      : "opacity-80 text-Neutral-100 dark:text-neutral-400 text-sm font-normal font-['Roboto'] leading-none hover:opacity-100 transition-opacity px-4 py-2 rounded-lg"
+                    pathname === tab.href
+                      ? "px-4 py-2 rounded-lg bg-Navy-600 bg-opacity-40 text-white text-sm font-bold font-['Roboto'] leading-none"
+                      : "px-4 py-2 rounded-lg text-white text-sm font-normal font-['Roboto'] leading-none hover:bg-Navy-700 hover:bg-opacity-30 hover:text-white transition"
                   }
                 >
                   {tab.name}
                 </a>
               </Link>
-            );
-          })}
+            ))}
+          </div>
         </div>
-        {/* Spacer */}
-        <div className="flex-1" />
-        {/* Icons */}
-        <div className="flex items-center gap-x-6">
-          <img className="w-7 h-7 text-white dark:text-neutral-900" src="/top-nav/search.svg" alt="Search Icon" />
-          <img className="w-7 h-7 text-white dark:text-neutral-900" src="/top-nav/chat-icon.svg" alt="Chat Icon" />
-          <img className="w-7 h-7 text-white dark:text-neutral-900" src="/top-nav/calendar-icon.svg" alt="Calendar Icon" />
-          <img className="w-7 h-7 text-white dark:text-neutral-900" src="/top-nav/notification-icon.svg" alt="Notification Icon" />
-          <img className="w-7 h-7 text-white dark:text-neutral-900" src="/top-nav/help-icon.svg" alt="Help Icon" />
-        </div>
-        {/* User Avatar with Profile Dropdown */}
-        <div className="relative ml-8">
-          <button
-            className="w-9 h-9 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-cyan-700 overflow-hidden"
-            aria-haspopup="menu"
-            aria-expanded={dropdownOpen}
-            aria-label="Open profile menu"
-            onClick={() => setDropdownOpen((open) => !open)}
-            tabIndex={0}
-          >
-            {session?.user && (session.user.profileImage || session.user.image) ? (
-              <img
-                src={session.user.profileImage || session.user.image || ''}
-                alt="Profile"
-                className="w-9 h-9 object-cover rounded-full border border-gray-200"
-              />
-            ) : (
-              <span className="text-neutral-900 dark:text-white text-base font-semibold font-['Inter']">
+        {/* Right: Icons and Avatar */}
+        <div className="flex items-center gap-4">
+          <img src="/top-nav/search.svg" alt="Search Icon" className="w-5 h-5 text-white" />
+          <img src="/top-nav/chat-icon.svg" alt="Chat Icon" className="w-5 h-5 text-white" />
+          <img src="/top-nav/calendar-icon.svg" alt="Calendar Icon" className="w-5 h-5 text-white" />
+          <img src="/top-nav/notification-icon.svg" alt="Notification Icon" className="w-5 h-5 text-white" />
+          <img src="/top-nav/help-icon.svg" alt="Help Icon" className="w-5 h-5 text-white" />
+          {/* Avatar/Profile Dropdown */}
+          <div className="relative ml-2">
+            <button
+              className="w-9 h-9 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-cyan-700"
+              aria-haspopup="menu"
+              aria-expanded={dropdownOpen}
+              aria-label="Open profile menu"
+              onClick={() => setDropdownOpen((open) => !open)}
+              tabIndex={0}
+            >
+              <span className="text-Navy-900 dark:text-white text-base font-semibold font-['Inter']">
                 {userInitial}
               </span>
+            </button>
+            {dropdownOpen && (
+              <ProfileDropdown open={dropdownOpen} onClose={() => setDropdownOpen(false)} />
             )}
-          </button>
-          {dropdownOpen && (
-            <ProfileDropdown open={dropdownOpen} onClose={() => setDropdownOpen(false)} />
-          )}
+          </div>
         </div>
       </div>
     </nav>
