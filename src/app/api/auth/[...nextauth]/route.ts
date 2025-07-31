@@ -38,13 +38,15 @@ export const authOptions: AuthOptions = {
         await dbConnect();
         const existingUser = await User.findOne({ email: user.email });
         if (!existingUser) {
-          // Create a new user with Google profile info
+          // Create a new user with Google profile info using correct schema fields
+          const nameParts = (user.name || profile?.name || "").split(" ");
           await User.create({
             email: user.email,
-            name: user.name || profile?.name || "",
+            firstName: nameParts[0] || "",
+            lastName: nameParts.slice(1).join(" ") || "",
             verified: true, // Google users are already verified
-            provider: "google",
-            // Add any other fields your User model requires
+            onboardingComplete: false, // Still need to complete onboarding
+            profileImage: user.image || profile?.picture || null,
           });
         }
       }
